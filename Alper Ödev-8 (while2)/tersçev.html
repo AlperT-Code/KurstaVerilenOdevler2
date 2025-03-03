@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sayı Kaydırma</title>
+</head>
+<body onload="sayiKaydir()">
+    <div id="sonuc"></div>
+</body>
+<script>
+        function sayiKaydir() {
+            let sayi = prompt("Bir sayı giriniz:");
+            let kaydirma = parseInt(prompt("Kaç basamak kaydırmak istersiniz?"), 10);
+
+            
+            let sayiStr = sayi.toString();
+            let uzunluk = sayiStr.length;
+
+          
+            kaydirma = kaydirma % uzunluk;
+
+   
+            let sonuc = sayiStr.slice(kaydirma) + sayiStr.slice(0, kaydirma);
+
+            document.getElementById("sonuc").innerHTML = `Sonuç: ${sonuc}`;
+        }
+    </script>
+</html>

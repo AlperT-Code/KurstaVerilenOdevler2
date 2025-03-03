@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fiş</title>
+    <script>
+        let fis = [
+            { urunAdi: "Elma", miktar: 5, birimFiyat: 2 },
+            { urunAdi: "Süt", miktar: 2, birimFiyat: 3 },
+            { urunAdi: "Ekmek", miktar: 1, birimFiyat: 1.5 }
+        ];
+
+        function fisYazdir() {
+            let result = "";
+            fis.forEach(item => {
+                result += `${item.urunAdi}: ${item.miktar} x ${item.birimFiyat} TL<br>`;
+            });
+            document.getElementById("fis").innerHTML = result;
+        }
+
+        function toplamTutarHesapla() {
+            let toplam = fis.reduce((total, item) => total + item.miktar * item.birimFiyat, 0);
+            document.getElementById("toplamTutar").innerHTML = "Toplam Tutar: " + toplam + " TL";
+        }
+
+        function enPahaliSatinalma() {
+            let pahali = fis.reduce((max, item) => (item.miktar * item.birimFiyat > max.miktar * max.birimFiyat) ? item : max);
+            document.getElementById("enPahali").innerHTML = "En Pahalı Ürün: " + pahali.urunAdi;
+        }
+
+        function ortalamaMaliyetHesapla(urunAdi) {
+            let urun = fis.find(item => item.urunAdi === urunAdi);
+            if (urun) {
+                let ortalama = urun.birimFiyat;
+                document.getElementById("ortalamaMaliyet").innerHTML = `${urunAdi} için ortalama maliyet: ${ortalama} TL`;
+            }
+        }
+    </script>
+</head>
+<body>
+    <h1>Fişiniz:</h1>
+    <button onclick="fisYazdir()">Fişi Yazdır</button>
+    <button onclick="toplamTutarHesapla()">Toplam Tutarı Hesapla</button>
+    <button onclick="enPahaliSatinalma()">En Pahalı Ürünü Bul</button>
+    <button onclick="ortalamaMaliyetHesapla('Elma')">Elma Ortalama Maliyet</button>
+    
+    <div id="fis"></div>
+    <div id="toplamTutar"></div>
+    <div id="enPahali"></div>
+    <div id="ortalamaMaliyet"></div>
+</body>
+</html>

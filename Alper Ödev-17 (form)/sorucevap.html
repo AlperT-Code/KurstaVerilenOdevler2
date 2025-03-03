@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Tamamlama</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container {
+            background-color: #F5DEB3; /* Ten rengi */
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 600px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .question {
+            margin-bottom: 20px;
+        }
+        .question label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            margin-top: 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #333;
+            color: #fff;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #555;
+        }
+        .result {
+            text-align: center;
+            font-size: 1.2em;
+            margin-top: 20px;
+            color: green;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Test Tamamlama</h1>
+        <form id="testForm">
+            <div class="question">
+                <label>Soru 1: Kim Dersten Kaçıp istanbula gitmiştir??</label>
+                <label><input type="radio" name="q1" value="0" required> Berat</label>
+                <label><input type="radio" name="q1" value="1"> Alper</label>
+            </div>
+            <div class="question">
+                <label>Soru 2: Türkiye'nin başkenti neresidir?</label>
+                <label><input type="radio" name="q2" value="1" required> Ankara</label>
+                <label><input type="radio" name="q2" value="0"> İstanbul</label>
+            </div>
+            <div class="question">
+                <label>Soru 3: Su, hangi bileşik formül ile gösterilir?</label>
+                <label><input type="radio" name="q3" value="1" required> H<sub>2</sub>O</label>
+                <label><input type="radio" name="q3" value="0"> CO<sub>2</sub></label>
+            </div>
+            <button type="submit">Testi Bitir</button>
+        </form>
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        document.getElementById('testForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+      
+            let correctAnswers = 0;
+            const answers = {
+                q1: "1", 
+                q2: "1", 
+                q3: "1"  
+            };
+            const formData = new FormData(event.target);
+
+            for (let [question, answer] of formData.entries()) {
+                if (answers[question] === answer) {
+                    correctAnswers++;
+                }
+            }
+
+          
+            const resultDiv = document.getElementById('result');
+            resultDiv.textContent = `Doğru cevap sayısı: ${correctAnswers} / ${Object.keys(answers).length}`;
+        });
+    </script>
+
+</body>
+</html>

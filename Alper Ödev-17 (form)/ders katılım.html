@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ders Katılım Sistemi</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container {
+            background-color: #F5DEB3; 
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 1000px;
+        }
+        .form-container {
+            width: 100%;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            margin-bottom: 20px;
+        }
+        .form-container label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .form-container input, .form-container select, .form-container button {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .form-container button {
+            background-color: #333;
+            color: #fff;
+            cursor: pointer;
+        }
+        .form-container button:hover {
+            background-color: #555;
+        }
+        .attendance-list {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .attendance-list ul {
+            list-style: none;
+            padding: 0;
+        }
+        .attendance-list li {
+            margin-bottom: 10px;
+        }
+        .attended {
+            color: green;
+        }
+        .not-attended {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="form-container">
+            <h1>Ders Katılımı</h1>
+            <form id="attendanceForm">
+                <label for="group">Grup Seçin:</label>
+                <select id="group" required>
+                    <option value="">Grup Seçiniz</option>
+                    <option value="A">Grup A</option>
+                    <option value="B">Grup B</option>
+                    <option value="C">Grup C</option>
+                </select>
+
+                <label for="lesson">Ders Seçin:</label>
+                <select id="lesson" required>
+                    <option value="">Ders Seçiniz</option>
+                    <option value="Matematik">Matematik</option>
+                    <option value="Fizik">Fizik</option>
+                    <option value="Kimya">Kimya</option>
+                </select>
+
+                <label for="topic">Ders Konusu:</label>
+                <input type="text" id="topic" placeholder="Ders konusunu girin" required>
+
+                <label for="attendees">Katılımcılar:</label>
+                <div id="attendees">
+                    <input type="checkbox" id="student1" value="Ali"> Ali<br>
+                    <input type="checkbox" id="student2" value="Ayşe"> Ayşe<br>
+                    <input type="checkbox" id="student3" value="Mehmet"> Mehmet<br>
+                    <input type="checkbox" id="student4" value="Zeynep"> Zeynep<br>
+                </div>
+
+                <button type="submit">Katılımı Kaydet</button>
+            </form>
+        </div>
+
+        <div class="attendance-list">
+            <h2>Katılım Durumu</h2>
+            <ul id="attendanceRecords"></ul>
+        </div>
+    </div>
+
+    <script>
+        const groups = ['A', 'B', 'C'];
+        const lessons = ['Matematik', 'Fizik', 'Kimya'];
+        const students = ['Ali', 'Ayşe', 'Mehmet', 'Zeynep'];
+
+        let attendanceRecords = [];
+
+        document.getElementById('attendanceForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const group = document.getElementById('group').value;
+            const lesson = document.getElementById('lesson').value;
+            const topic = document.getElementById('topic').value;
+            const selectedStudents = [];
+
+          
+            students.forEach((student, index) => {
+                if (document.getElementById(`student${index + 1}`).checked) {
+                    selectedStudents.push(student);
+                }
+            });
+
+            const record = {
+                group,
+                lesson,
+                topic,
+                attendees: selectedStudents
+            };
+
+            attendanceRecords.push(record);
+
+            
+            updateAttendanceList();
+          
+            document.getElementById('attendanceForm').reset();
+        });
+
+        function updateAttendanceList() {
+            const attendanceList = document.getElementById('attendanceRecords');
+            attendanceList.innerHTML = '';
+
+            attendanceRecords.forEach(record => {
+                const listItem = document.createElement('li');
+                listItem.innerHTML = `
+                    <strong>${record.lesson} - ${record.topic}</strong> (${record.group})<br>
+                    Katılımcılar: ${students.map(student => {
+                        if (record.attendees.includes(student)) {
+                            return `<span class="attended">${student}</span>`;
+                        } else {
+                            return `<span class="not-attended">${student}</span>`;
+                        }
+                    }).join(', ')}
+                `;
+                attendanceList.appendChild(listItem);
+            });
+        }
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button onclick="sor()">Cevapla</button>
+    <script>
+        function sor() {
+            let dogruCevap = 6;
+            let kullaniciCevabi;
+            do {
+                kullaniciCevabi = prompt("2+2*2 işleminin sonucu kaçtır?");
+                if (kullaniciCevabi !== null) {
+                    kullaniciCevabi = Number(kullaniciCevabi);
+                    if (kullaniciCevabi === dogruCevap) {
+                        alert("Doğru cevap");
+                    } else {
+                        alert("Yanlış cevap tekrar deneyniz");
+                    }
+                }
+            } while (kullaniciCevabi !== dogruCevap);
+        }
+    </script>
+</body>
+</html>

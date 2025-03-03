@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Araç</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+    input {
+      width: 100px;
+      margin: 5px;
+    }
+    button {
+      margin: 10px 0;
+      padding: 5px 10px;
+    }
+    .result {
+      margin-top: 20px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div>
+    <h3>Araç Bilgileri</h3>
+    <label>Marka: <input id="brand" type="text" placeholder="Araç markası"></label><br>
+    <label>Model: <input id="model" type="text" placeholder="Araç modeli"></label><br>
+    <label>Ortalama Hız (km/saat): <input id="averageSpeed" type="number" placeholder="Ortalama hız"></label><br>
+    <button onclick="displayVehicleInfo()">Araç Bilgilerini Göster</button>
+  </div>
+
+  <div>
+    <h3>Mesafe Hesaplama</h3>
+    <label>Mesafe (km): <input id="distance" type="number" placeholder="Mesafe"></label><br>
+    <button onclick="calculateTravelTime()">Seyahat Süresi Hesapla</button>
+  </div>
+
+  <div class="result" id="result"></div>
+
+  <script>
+    const vehicle = {
+      brand: "",
+      model: "",
+      averageSpeed: 0,
+
+      displayInfo() {
+        return `Araç: ${this.brand} ${this.model}, Ortalama Hız: ${this.averageSpeed} km/saat`;
+      },
+
+      calculateTime(distance) {
+        if (this.averageSpeed <= 0) {
+          return "Ortalama hız sıfırdan büyük olmalı!";
+        }
+        const travelHours = distance / this.averageSpeed;
+        const restHours = Math.floor(travelHours / 4);
+        const totalHours = travelHours + restHours;
+        return `Toplam Seyahat Süresi: ${totalHours.toFixed(2)} saat (Molalar dahil)`;
+      }
+    };
+
+    function displayVehicleInfo() {
+      const brand = document.getElementById("brand").value;
+      const model = document.getElementById("model").value;
+      const averageSpeed = parseFloat(document.getElementById("averageSpeed").value);
+
+      if (!brand || !model || isNaN(averageSpeed) || averageSpeed <= 0) {
+        document.getElementById("result").textContent = "Lütfen tüm araç bilgilerini doğru bir şekilde girin.";
+        return;
+      }
+
+      vehicle.brand = brand;
+      vehicle.model = model;
+      vehicle.averageSpeed = averageSpeed;
+
+      document.getElementById("result").textContent = vehicle.displayInfo();
+    }
+
+    function calculateTravelTime() {
+      const distance = parseFloat(document.getElementById("distance").value);
+
+      if (isNaN(distance) || distance <= 0 || vehicle.averageSpeed <= 0) {
+        document.getElementById("result").textContent = "Lütfen geçerli bir mesafe ve araç bilgisi girin.";
+        return;
+      }
+
+      const travelTime = vehicle.calculateTime(distance);
+      document.getElementById("result").textContent = travelTime;
+    }
+  </script>
+</body>
+</html>

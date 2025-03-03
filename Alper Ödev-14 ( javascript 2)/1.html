@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alışveriş</title>
+    <script>
+        let alisverisListesi = [
+            { urunAdi: "Elma", miktar: 5, satinAlindi: false },
+            { urunAdi: "Süt", miktar: 2, satinAlindi: true },
+            { urunAdi: "Ekmek", miktar: 1, satinAlindi: false }
+        ];
+
+        function listeyiYazdir() {
+            let satinAlinmayanlar = alisverisListesi.filter(item => !item.satinAlindi);
+            let satinAlinanlar = alisverisListesi.filter(item => item.satinAlindi);
+
+            let result = "<h2>Satın Alınmayanlar:</h2>";
+            satinAlinmayanlar.forEach(item => result += `${item.urunAdi}: ${item.miktar}<br>`);
+            result += "<h2>Satın Alınanlar:</h2>";
+            satinAlinanlar.forEach(item => result += `${item.urunAdi}: ${item.miktar}<br>`);
+
+            document.getElementById("alisverisListesi").innerHTML = result;
+        }
+
+        function satinAlmaEkle(urunAdi, miktar) {
+            let urun = alisverisListesi.find(item => item.urunAdi === urunAdi);
+            if (urun) {
+                urun.miktar += miktar;
+            } else {
+                alisverisListesi.push({ urunAdi, miktar, satinAlindi: false });
+            }
+        }
+
+        function urunSatinal(urunAdi) {
+            let urun = alisverisListesi.find(item => item.urunAdi === urunAdi);
+            if (urun) {
+                urun.satinAlindi = true;
+            }
+        }
+    </script>
+</head>
+<body>
+    <h1>Alışveriş Listesi:</h1>
+    <button onclick="listeyiYazdir()">Alışveriş Listesini Görüntüle</button>
+    <div id="alisverisListesi"></div>
+</body>
+</html>

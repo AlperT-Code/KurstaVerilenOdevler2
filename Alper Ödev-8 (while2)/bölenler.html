@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sayı Bölenlerini Bul</title>
+    <script>
+        function bolen() {
+            const sayi = parseInt(prompt("Bir sayı girin:"));
+            let bolenler = [];
+            for (let i = 1; i <= sayi; i++) {
+                if (sayi % i === 0) {
+                    bolenler.push(i);
+                }
+            }
+            alert(`Sayının bölenleri: ${bolenler.join(", ")}`);
+        }
+    </script>
+</head>
+<body>
+    
+    <button onclick="bolen()">Bölen</button>
+</body>
+</html>

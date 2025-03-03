@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kitap Mağazası Siparişi</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container {
+            background-color: #F5DEB3; /* Ten rengi */
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 1000px;
+            display: flex;
+            justify-content: space-between;
+        }
+        .books {
+            display: flex;
+            flex-direction: column;
+            width: 60%;
+        }
+        .book-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+        .book {
+            text-align: center;
+            width: 30%;
+            background-color: #fff;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .book img {
+            max-width: 100px;
+            height: auto;
+        }
+        .form-container {
+            width: 35%;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .form-container label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .form-container input, .form-container textarea, .form-container button {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .form-container button {
+            background-color: #333;
+            color: #fff;
+            cursor: pointer;
+        }
+        .form-container button:hover {
+            background-color: #555;
+        }
+        .output {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 1.2em;
+            color: green;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="books">
+            <h1>Kitap Seçimi</h1>
+            <div style="height: 300px;" class="book-row">
+                <div class="book" data-name="Kitap 1" data-price="100 TL">
+                    <img style="height: 170px;border-radius: 10px;" src="s-cb4798d154dd3579a39a4e1dad027964125f0b65.jpg" alt="Kitap 1">
+                    <p>Alper ve İstanbul</p>
+                    <p>Fiyat: 100 TL</p>
+                    <button class="selectBook">Kitap Seç</button>
+                </div>
+                <div class="book" data-name="Kitap 2" data-price="150 TL">
+                    <img style="height: 170px;border-radius: 10px;" src="s-cb4798d154dd3579a39a4e1dad027964125f0b65.jpg" alt="Kitap 2">
+                    <p>Alper ve İstanbul 2</p>
+                    <p>Fiyat: 150 TL</p>
+                    <button class="selectBook">Kitap Seç</button>
+                </div>
+                <div class="book" data-name="Kitap 3" data-price="200 TL">
+                    <img style="height: 170px;border-radius: 10px;" src="s-cb4798d154dd3579a39a4e1dad027964125f0b65.jpg" alt="Kitap 3">
+                    <p>Alper ve İstanbul 3</p>
+                    <p>Fiyat: 200 TL</p>
+                    <button class="selectBook">Kitap Seç</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-container">
+            <h1>Sipariş Formu</h1>
+            <form id="orderForm">
+                <label for="bookName">Seçilen Kitap:</label>
+                <input type="text" id="bookName" readonly>
+                
+                <label for="bookPrice">Fiyat:</label>
+                <input type="text" id="bookPrice" readonly>
+
+                <label for="name">Adınız:</label>
+                <input type="text" id="name" placeholder="Adınızı girin" required>
+                
+                <label for="deliveryDate">Teslimat Tarihi:</label>
+                <input type="date" id="deliveryDate" required>
+                
+                <label for="address">Teslimat Adresi:</label>
+                <textarea id="address" placeholder="Adresi girin" rows="3" required></textarea>
+                
+                <button type="submit">Sipariş Ver</button>
+            </form>
+            <div class="output" id="output"></div>
+        </div>
+    </div>
+
+    <script>
+        // Kitap seçme butonları
+        document.querySelectorAll('.selectBook').forEach(button => {
+            button.addEventListener('click', () => {
+                const book = button.parentElement;
+                const name = book.getAttribute('data-name');
+                const price = book.getAttribute('data-price');
+                document.getElementById('bookName').value = name;
+                document.getElementById('bookPrice').value = price;
+            });
+        });
+
+        // Form gönderme
+        document.getElementById('orderForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const bookName = document.getElementById('bookName').value;
+            const bookPrice = document.getElementById('bookPrice').value;
+            const name = document.getElementById('name').value;
+            const deliveryDate = document.getElementById('deliveryDate').value;
+            const address = document.getElementById('address').value;
+
+            const outputDiv = document.getElementById('output');
+            outputDiv.innerHTML = `
+                <p>${name}, siparişiniz için teşekkür ederiz.</p>
+                <p>"${bookName}" kitabı (${bookPrice}), ${deliveryDate} tarihinde "${address}" adresine teslim edilecektir.</p>
+            `;
+        });
+    </script>
+
+</body>
+</html>

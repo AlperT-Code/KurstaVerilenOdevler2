@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS Stil Uygulama</title>
+    <script>
+        let cssStilleri = [
+            { stilAdi: "color", stilDegeri: "red" },
+            { stilAdi: "font-family", stilDegeri: "Arial" },
+            { stilAdi: "font-size", stilDegeri: "16px" }
+        ];
+
+        function stilUygula(stilDizisi, metin) {
+            let stilString = stilDizisi.map(stil => `${stil.stilAdi}:${stil.stilDegeri}`).join(";");
+            document.getElementById("metin").innerHTML = `<p style="${stilString}">${metin}</p>`;
+        }
+    </script>
+</head>
+<body>
+    <button onclick="stilUygula(cssStilleri, 'AlperT.!')">Stil Uygula</button>
+    <div id="metin"></div>
+</body>
+</html>

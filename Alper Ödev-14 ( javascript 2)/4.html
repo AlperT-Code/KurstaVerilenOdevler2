@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Akademi Auditoriumları</title>
+    <script>
+     
+        let auditoriumlar = [
+            { ad: "Auditorium A", koltukSayisi: 15, fakulte: "Mühendislik" },
+            { ad: "Auditorium B", koltukSayisi: 20, fakulte: "Fen" },
+            { ad: "Auditorium C", koltukSayisi: 12, fakulte: "Tıp" },
+            { ad: "Auditorium D", koltukSayisi: 18, fakulte: "Mühendislik" },
+            { ad: "Auditorium E", koltukSayisi: 10, fakulte: "Fen" },
+            { ad: "Auditorium F", koltukSayisi: 17, fakulte: "Tıp" }
+        ];
+
+      
+        function auditoriumlariYazdir() {
+            let result = "<h2>Tüm Auditoriumlar:</h2>";
+            auditoriumlar.forEach(item => {
+                result += `${item.ad} - Koltuk Sayısı: ${item.koltukSayisi}, Fakülte: ${item.fakulte}<br>`;
+            });
+            document.getElementById("auditoriumlar").innerHTML = result;
+        }
+
+       
+        function hedefKitleYazdir(fakulte) {
+            let hedefKitle = auditoriumlar.filter(item => item.fakulte === fakulte);
+            let result = `<h2>${fakulte} Fakültesi Hedef Kitleleri:</h2>`;
+            hedefKitle.forEach(item => {
+                result += `${item.ad} - Koltuk Sayısı: ${item.koltukSayisi}<br>`;
+            });
+            document.getElementById("hedefKitle").innerHTML = result;
+        }
+
+       
+        function grupUygunAuditoriumlariListele(grup) {
+            let uygunlar = auditoriumlar.filter(item => item.fakulte === grup.fakulte);
+            let result = `<h2>${grup.fakulte} Grubuna Uygun Auditoriumlar:</h2>`;
+            uygunlar.forEach(item => {
+                result += `${item.ad} - Koltuk Sayısı: ${item.koltukSayisi}<br>`;
+            });
+            document.getElementById("grupUygun").innerHTML = result;
+        }
+
+        
+        function auditoriumlariKoltukSayisinaGoreSirala() {
+            auditoriumlar.sort((a, b) => a.koltukSayisi - b.koltukSayisi);
+            auditoriumlariYazdir();
+        }
+
+        
+        function auditoriumlariAdinaGoreSirala() {
+            auditoriumlar.sort((a, b) => a.ad.localeCompare(b.ad));
+            auditoriumlariYazdir();
+        }
+    </script>
+</head>
+<body>
+    <h1>Akademi Auditoriumları</h1>
+
+    <button onclick="auditoriumlariYazdir()">Tüm Auditoriumları Yazdır</button>
+    <div id="auditoriumlar"></div>
+
+   
+    <button onclick="hedefKitleYazdir('Mühendislik')">Mühendislik Fakültesi</button>
+    <button onclick="hedefKitleYazdir('Fen')">Fen Fakültesi</button>
+    <button onclick="hedefKitleYazdir('Tıp')">Tıp Fakültesi</button>
+    <div id="hedefKitle"></div>
+
+    
+    <button onclick="grupUygunAuditoriumlariListele({ fakulte: 'Mühendislik' })">Mühendislik Grubu</button>
+    <button onclick="grupUygunAuditoriumlariListele({ fakulte: 'Fen' })">Fen Grubu</button>
+    <button onclick="grupUygunAuditoriumlariListele({ fakulte: 'Tıp' })">Tıp Grubu</button>
+    <div id="grupUygun"></div>
+
+   
+    <button onclick="auditoriumlariKoltukSayisinaGoreSirala()">Koltuk Sayısına Göre Sırala</button>
+
+    
+    <button onclick="auditoriumlariAdinaGoreSirala()">Adlara Göre Sırala</button>
+</body>
+</html>

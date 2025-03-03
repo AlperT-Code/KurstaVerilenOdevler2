@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sayıyı Tahmin Et Oyunu</title>
+</head>
+<body>
+    <button onclick="startGame()">Başlat</button>
+    <p id="message"></p>
+    <button id="greaterButton" style="display: none;" onclick="guess('greater')">Sayınız > N</button>
+    <button id="lessButton" style="display: none;" onclick="guess('less')">Sayınız < N</button>
+    <button id="equalButton" style="display: none;" onclick="guess('equal')">Sayınız == N</button>
+
+    <script>
+        let min = 0;
+        let max = 100;
+        let guessNumber;
+
+        function startGame() {
+            min = 0;
+            max = 100;
+            makeGuess();
+            document.getElementById("greaterButton").style.display = "inline";
+            document.getElementById("lessButton").style.display = "inline";
+            document.getElementById("equalButton").style.display = "inline";
+        }
+
+        function makeGuess() {
+            guessNumber = Math.floor((min + max) / 2);
+            document.getElementById("message").textContent = `Tahminim: ${guessNumber}. Sayınız >, < veya == mı?`;
+        }
+
+        function guess(response) {
+            if (response === 'greater') {
+                min = guessNumber + 1;
+            } else if (response === 'less') {
+                max = guessNumber - 1;
+            } else if (response === 'equal') {
+                document.getElementById("message").textContent = `Sayıyı buldum! Sayınız: ${guessNumber}`;
+                document.getElementById("greaterButton").style.display = "none";
+                document.getElementById("lessButton").style.display = "none";
+                document.getElementById("equalButton").style.display = "none";
+                return;
+            }
+            makeGuess();
+        }
+        // chatgpt yardım eti
+    </script>
+</body>
+</html>

@@ -1,0 +1,27 @@
+.container{
+    width: 800px;
+    height: 200px;
+    background-color: rgb(255, 255, 255);
+    margin: 10px;
+    
+}
+
+.box {
+    margin-bottom:100px ;
+    margin-top: 60px;
+    width: 200px;
+    height: 200px;
+    background-color: orange;
+    transition: all .4s ease-in-out;
+    cursor: pointer;
+}
+    .box:hover {
+        transform: scale(600px);
+        -webkit-transform: translate(600px);
+
+        
+   
+ }
+ body{
+    background-color:rgb(219, 215, 215) ;
+ }

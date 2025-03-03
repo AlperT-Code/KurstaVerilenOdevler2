@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tren Bileti Rezervasyonu</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container {
+            background-color: #F5DEB3; 
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 1200px;
+        }
+        .form-container, .reservation-container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            margin-bottom: 20px;
+        }
+        .form-container label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .form-container input, .form-container select, .form-container button {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .form-container button {
+            background-color: #333;
+            color: #fff;
+            cursor: pointer;
+        }
+        .form-container button:hover {
+            background-color: #555;
+        }
+        .seats {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+        .seat {
+            width: 60px;
+            height: 60px;
+            margin: 5px;
+            background-color: #ccc;
+            border-radius: 5px;
+            text-align: center;
+            line-height: 60px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .reserved {
+            background-color: #e74c3c;
+            cursor: not-allowed;
+        }
+        .available {
+            background-color: #2ecc71;
+        }
+        .output {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 1.2em;
+            color: green;
+        }
+        .reservation-list {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="form-container">
+            <h1>Tren Bileti Rezervasyonu</h1>
+            <form id="reservationForm">
+                <label for="direction">Tren Yönü:</label>
+                <select id="direction" required>
+                    <option value="">Yön Seçiniz</option>
+                    <option value="İstanbul - Ankara">İstanbul - Ankara</option>
+                    <option value="Ankara - İstanbul">Ankara - İstanbul</option>
+                </select>
+
+                <label for="date">Seyahat Tarihi:</label>
+                <input type="date" id="date" required>
+
+                <button type="submit">Koltuk Seç</button>
+            </form>
+        </div>
+
+        <div class="reservation-container" id="seatSelection" style="display: none;">
+            <h2>Koltuk Seçin</h2>
+            <div id="seats" class="seats"></div>
+            <button id="reserveSeats" style="display: none;">Rezervasyon Yap</button>
+        </div>
+
+        <div class="reservation-list">
+            <h2>Rezerve Edilmiş Biletler</h2>
+            <ul id="reservedTickets"></ul>
+        </div>
+    </div>
+
+    <script>
+        const reservedSeats = []; 
+        const seats = ['A1', 'A2', 'A3', 'A4', 'A5', 'A6', 'B1', 'B2', 'B3', 'B4', 'B5', 'B6']; // Koltuklar
+
+     
+        document.getElementById('reservationForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const direction = document.getElementById('direction').value;
+            const date = document.getElementById('date').value;
+
+            if (!direction || !date) {
+                alert('Lütfen tüm alanları doldurun!');
+                return;
+            }
+
+   
+            document.getElementById('seatSelection').style.display = 'block';
+            generateSeatLayout(direction, date);
+        });
+
+        
+        function generateSeatLayout(direction, date) {
+            const seatsContainer = document.getElementById('seats');
+            seatsContainer.innerHTML = '';
+            reservedSeats.length = 0; 
+
+           
+            seats.forEach(seat => {
+                const seatElement = document.createElement('div');
+                seatElement.classList.add('seat');
+                seatElement.textContent = seat;
+
+               
+                if (!reservedSeats.includes(seat)) {
+                    seatElement.classList.add('available');
+                    seatElement.addEventListener('click', () => {
+                        if (seatElement.classList.contains('available')) {
+                            seatElement.classList.remove('available');
+                            seatElement.classList.add('reserved');
+                            reservedSeats.push(seat);
+                        }
+                    });
+                } else {
+                    seatElement.classList.add('reserved');
+                }
+
+                seatsContainer.appendChild(seatElement);
+            });
+
+            
+            document.getElementById('reserveSeats').style.display = 'block';
+        }
+
+        
+        document.getElementById('reserveSeats').addEventListener('click', function() {
+            if (reservedSeats.length === 0) {
+                alert('Lütfen en az bir koltuk seçin!');
+                return;
+            }
+
+            const direction = document.getElementById('direction').value;
+            const date = document.getElementById('date').value;
+
+           
+            const ticket = {
+                direction,
+                date,
+                seats: reservedSeats.join(', ')
+            };
+
+          
+            const reservedTicketsList = document.getElementById('reservedTickets');
+            const listItem = document.createElement('li');
+            listItem.textContent = `Yön: ${ticket.direction}, Tarih: ${ticket.date}, Koltuklar: ${ticket.seats}`;
+            reservedTicketsList.appendChild(listItem);
+
+          
+            reservedSeats.length = 0;
+            document.getElementById('seatSelection').style.display = 'none';
+            alert('Rezervasyonunuz başarıyla kaydedildi!');
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sayı İstatistikleri</title>
+</head>
+<body onload="sayiHesapla()">
+    <div id="sonuc"></div>
+</body> 
+<script>
+        function sayiHesapla() {
+            let pozitif = 0;
+            let negatif = 0;
+            let sifir = 0;
+            let cift = 0;
+            let tek = 0;
+
+            for (let i = 1; i <= 10; i++) {
+                let sayi = parseFloat(prompt(`${i}. sayıyı girin:`));
+
+                if (sayi > 0) {
+                    pozitif++;
+                } else if (sayi < 0) {
+                    negatif++;
+                } else {
+                    sifir++;
+                }
+
+                if (sayi % 2 === 0) {
+                    cift++;
+                } else if (sayi !== 0) {
+                    tek++;
+                }
+            }
+
+            // İstatistikleri ekrana yazdır
+            document.getElementById("sonuc").innerHTML = `
+                Pozitif Sayılar: ${pozitif}<br>
+                Negatif Sayılar: ${negatif}<br>
+                Sıfır Sayıları: ${sifir}<br>
+                Çift Sayılar: ${cift}<br>
+                Tek Sayılar: ${tek}
+            `;
+        }
+    </script>
+</html>

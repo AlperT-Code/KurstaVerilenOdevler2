@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Haftanın Günleri</title>
+    <script>
+        
+        const gunler = ["Pazar", "Pazartesi", "Salı", "Çarşamba", "Perşembe", "Cuma", "Cumartesi"];
+        let index = 0; 
+
+        function sonrakiGun() {
+         
+            const mesaj = `Haftanın günü: ${gunler[index]}. Bir sonraki günü görmek ister misiniz?`;
+           
+            if (confirm(mesaj)) {
+                
+                index = (index + 1) % gunler.length;
+                sonrakiGun();
+            }
+        }
+    </script>
+</head>
+<body onload="sonrakiGun()">
+</body>
+</html>

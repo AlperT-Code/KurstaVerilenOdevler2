@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forum Mesajları</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container {
+            background-color: #F5DEB3;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 600px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .message-list {
+            margin-top: 20px;
+            list-style: none;
+            padding: 0;
+        }
+        .message-list li {
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            padding: 10px;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+        form {
+            margin-bottom: 20px;
+        }
+        form input, form textarea, form button {
+            display: block;
+            margin-bottom: 10px;
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        form button {
+            background-color: #333;
+            color: #fff;
+            cursor: pointer;
+            border: none;
+        }
+        form button:hover {
+            background-color: #555;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Forum Mesajları</h1>
+
+        <form id="messageForm">
+            <label for="username">Adınız:</label>
+            <input type="text" id="username" placeholder="Adınızı girin" required>
+            
+            <label for="message">Mesajınız:</label>
+            <textarea id="message" placeholder="Mesajınızı yazın" rows="4" required></textarea>
+            
+            <button type="submit">Mesaj Gönder</button>
+        </form>
+
+        <ul class="message-list" id="messageList">
+            <li><strong>Alper:</strong> I am in İstanbuldayım hocam çoksel burasi</li>
+            <li><strong>Berat:</strong> Hocamı ve arkadaşlarımı çok özledim </li>
+        </ul>
+    </div>
+
+    <script>
+        document.getElementById('messageForm').addEventListener('submit', function(event) {
+            event.preventDefault(); 
+
+            const username = document.getElementById('username').value;
+            const message = document.getElementById('message').value;
+
+            
+            const newMessage = document.createElement('li');
+            newMessage.innerHTML = `<strong>${username}:</strong> ${message}`;
+
+            document.getElementById('messageList').appendChild(newMessage);
+
+      
+            document.getElementById('messageForm').reset();
+        });
+    </script>
+
+</body>
+</html>

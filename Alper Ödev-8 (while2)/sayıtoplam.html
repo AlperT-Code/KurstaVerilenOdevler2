@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rakam Sayısını Bul</title>
+    <script>
+        function sayi() {
+            const sayi = prompt("Bir sayı girin:");
+            const rakamSayisi = sayi.replace(/[^0-9]/g, '').length;
+            alert(`Rakam sayısı: ${rakamSayisi}`);
+        }
+    </script>
+</head>
+<body>
+    <button onclick="sayi()">Rakam Sayısını Hesapla</button>
+</body>
+</html>

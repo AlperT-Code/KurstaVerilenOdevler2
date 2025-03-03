@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Saat</title>
+</head>
+<body>
+  <p id="clock">00:00:00</p>
+
+  <button onclick="addSeconds(30)">30 Saniye Ekle</button>
+  <button onclick="addMinutes(10)">10 Dakika Ekle</button>
+  <button onclick="addHours(1)">1 Saat Ekle</button>
+
+  <script>
+    class Clock {
+      constructor() {
+        const now = new Date();
+        this.hour = now.getHours();
+        this.minute = now.getMinutes();
+        this.second = now.getSeconds();
+      }
+
+      normalize() {
+        if (this.second >= 60) {
+          this.minute += Math.floor(this.second / 60);
+          this.second %= 60;
+        }
+        if (this.minute >= 60) {
+          this.hour += Math.floor(this.minute / 60);
+          this.minute %= 60;
+        }
+        this.hour %= 24;
+      }
+
+      displayTime() {
+        const format = (num) => String(num).padStart(2, "0");
+        document.getElementById("clock").textContent = `${format(this.hour)}:${format(this.minute)}:${format(this.second)}`;
+      }
+
+      addSeconds(seconds) {
+        this.second += seconds;
+        this.normalize();
+        this.displayTime();
+      }
+
+      addMinutes(minutes) {
+        this.minute += minutes;
+        this.normalize();
+        this.displayTime();
+      }
+
+      addHours(hours) {
+        this.hour += hours;
+        this.normalize();
+        this.displayTime();
+      }
+    }
+
+
+    const myClock = new Clock();
+
+    function addSeconds(seconds) {
+      myClock.addSeconds(seconds);
+    }
+
+    function addMinutes(minutes) {
+      myClock.addMinutes(minutes);
+    }
+
+    function addHours(hours) {
+      myClock.addHours(hours);
+    }
+
+    myClock.displayTime();
+  </script>
+</body>
+</html>
